@@ -1,0 +1,233 @@
+#include <stdio.h>
+#include <math.h>
+
+float addition(float a,float b){
+    return a+b;
+}
+float multiplication(float a,float b){
+    return a*b;
+}
+float soustraction(float a,float b){
+    return a-b;
+}
+float division(float a,float b){
+    return a/b;
+}
+float puissance(float a,float e){
+    return pow(a, e);
+}
+float exponentielles(float a){
+    return expf(a);
+}
+float reste_de_la_division_entiere(float a,float b){
+    int a_arrondi=(int)round(a);
+    int b_arrondi=(int)round(b);
+    return a_arrondi % b_arrondi;
+}
+float factorielle(float a){
+    if(a==0){
+        return 1;
+    }
+    else {
+        return a*factorielle(a-1);
+    }
+}
+int pgcd(float a, float b) {
+    int r;
+    int a_entier=(int)a;
+    int b_entier=(int)b;
+    while (b_entier != 0) {
+        r = a_entier % b_entier;
+        a_entier = b_entier;
+        b_entier = r;
+    }
+    return a_entier;
+}
+int ppcm(float a, float b) {
+    return (a * b) / pgcd(a, b);
+}
+void remplir_matrices(int matrice1[2][2], int matrice2[2][2]) {
+    printf("Remplissage de la matrice 1 :\n");
+    for (int i = 0; i < 2; i++) {
+        for (int j = 0; j < 2; j++) {
+            printf("Entrez la valeur pour la case [%d][%d] : ", i, j);
+            scanf("%d", &matrice1[i][j]);
+        }
+    }
+
+    printf("Remplissage de la matrice 2 :\n");
+    for (int i = 0; i < 2; i++) {
+        for (int j = 0; j < 2; j++) {
+            printf("Entrez la valeur pour la case [%d][%d] : ", i, j);
+            scanf("%d", &matrice2[i][j]);
+        }
+    }
+}
+void somme_matrices(int matrice1[2][2], int matrice2[2][2], int resultat[2][2]) {
+    for (int i = 0; i < 2; i++) {
+        for (int j = 0; j < 2; j++) {
+            resultat[i][j] = matrice1[i][j] + matrice2[i][j];
+        }
+    }
+}
+void soustraction_matrices(int matrice1[2][2], int matrice2[2][2], int resultat[2][2]) {
+    for (int i = 0; i < 2; i++) {
+        for (int j = 0; j < 2; j++) {
+            resultat[i][j] = matrice1[i][j] - matrice2[i][j];
+        }
+    }
+}
+void multiplication_matrices(int matrice1[2][2], int matrice2[2][2], int resultat[2][2]) {
+    for (int i = 0; i < 2; i++) {
+        for (int j = 0; j < 2; j++) {
+            resultat[i][j] = 0;
+            for (int k = 0; k < 2; k++) {
+                resultat[i][j] += matrice1[i][k] * matrice2[k][j];
+            }
+        }
+    }
+}
+void transposer_matrice(int matrice[2][2], int transposee[2][2]) {
+    for (int i = 0; i < 2; i++) {
+        for (int j = 0; j < 2; j++) {
+            transposee[j][i] = matrice[i][j];
+        }
+    }
+}
+int calculer_determinant(int matrice[2][2]) {
+    int determinant = (matrice[0][0] * matrice[1][1]) - (matrice[0][1] * matrice[1][0]);
+    return determinant;
+}
+    int main(int argc, const char * argv[]) {
+        int choix,operation,L1,C1,L2,C2,i,j;
+        int matrice1[2][2],matrice2[2][2],resultat[2][2],transposee1[2][2],transposee2[2][2];
+        float a,e,b;
+        char ch;
+        int continuer ;
+        do
+        {
+        printf("Choisissez le type de calcul:\n");
+        printf("1. Calcul numerique\n");
+        printf("2. Calcul matriciel\n");
+        scanf("%d", &choix);
+            if ( choix == 1){
+                printf("entrez la valeur du premier nombre : ");
+                scanf("%f",&a);
+                printf("entrez la valeur du deuxieme nombre : ");
+                scanf("%f",&b);
+                printf("1:La somme\n2:la soustraction\n3:la multiplication\n4:La division \n5:La puissance \n6:L'exponentielle\n7:le reste de la division entiere\n8:Factorielle\n9:PGCD\n10:PPCM\nveuillez choisir l'operation voulue : ");
+                scanf("%d",&operation);
+                if(operation==1){
+                    printf("%.2f + %.2f = %.2f\n",a,b,addition(a, b));
+                }
+                if(operation==2){
+                    printf("%.2f - %.2f = %.2f\n",a,b,soustraction(a, b));
+                }
+                if(operation==3){
+                    printf("%.2f * %.2f = %.2f",a,b,multiplication(a, b));
+                }
+                if(operation==4){
+                    printf("%.2f ÷ %.2f = %.2f",a,b,division(a, b));
+                }
+                if(operation==5){
+                    printf("entrez la valeur de l'exposant :");
+                    scanf("%f",&e);
+                    printf("Pour le 1er nombre :%.2f ^ %.2f = %.2f \n",a,e,puissance(a, e));
+                    printf("Pour le 2eme nombre :%.2f ^ %.2f = %.2f",b,e,puissance(b, e));
+                }
+                if(operation==6){
+                    printf("l'exponentielle de a est :%.2f\n",exponentielles(a));
+                    printf("l'exponentielle de b est :%.2f",exponentielles(b));
+                }
+                if(operation==7){
+                    printf("le reste de la division des deux nombres est %.2f\n",reste_de_la_division_entiere(a, b));
+                }
+                if(operation==8){
+                    printf("le factorielle du 1er nombre est %.2f\n",factorielle(a));
+                    printf("le factorielle du 2eme nombre est %.2f\n",factorielle(b));
+                }
+                if(operation==9){
+                    printf("le pgcd est %d\n",pgcd(a, b));
+                }
+                if(operation==10){
+                    printf("le ppcm est %d\n",ppcm(a, b));
+                }
+            }
+            if ( choix == 2){
+                remplir_matrices(matrice1, matrice2);
+                somme_matrices(matrice1, matrice2, resultat);
+                soustraction_matrices(matrice1, matrice2, resultat);
+                multiplication_matrices(matrice1, matrice2, resultat);
+                transposer_matrice(matrice1, transposee1);
+                transposer_matrice(matrice2, transposee2);
+
+                printf("Matrice 1 :\n");
+                    for (int i = 0; i < 2; i++) {
+                        for (int j = 0; j < 2; j++) {
+                            printf("%d ", matrice1[i][j]);
+                        }
+                    printf("\n");
+                }
+                printf("Matrice 2 :\n");
+                    for (int i = 0; i < 2; i++) {
+                        for (int j = 0; j < 2; j++) {
+                            printf("%d ", matrice2[i][j]);
+                        }
+                    printf("\n");
+                }
+                printf("1:La somme\n2:la soustraction\n3:la multiplication\n4:Transposée\n5:determinant\nveuillez choisir l'operation voulue : ");
+                scanf("%d",&operation);
+                if(operation ==1){
+                    printf("Somme des matrices :\n");
+                    for (int i = 0; i < 2; i++) {
+                        for (int j = 0; j < 2; j++) {
+                                printf("%d ", resultat[i][j]);
+                            }
+                        printf("\n");
+                    }
+                }
+                if(operation ==2){
+                    printf("Soustraction des matrices :\n");
+                    for (int i = 0; i < 2; i++) {
+                            for (int j = 0; j < 2; j++) {
+                                printf("%d ", resultat[i][j]);
+                            }
+                        printf("\n");
+                    }
+                }
+                if(operation ==3){
+                   printf("Multiplication des matrices :\n");
+                     for (int i = 0; i < 2; i++) {
+                        for (int j = 0; j < 2; j++) {
+                            printf("%d ", resultat[i][j]);
+                        }
+                        printf("\n");
+                    }
+                }
+                if(operation ==4){
+                    printf("Matrice 1 transposée :\n");
+                        for (int i = 0; i < 2; i++) {
+                            for (int j = 0; j < 2; j++) {
+                                printf("%d ", transposee1[i][j]);
+                            }
+                        printf("\n");
+                        }
+                    printf("Matrice 2 transposée :\n");
+                        for (int i = 0; i < 2; i++) {
+                            for (int j = 0; j < 2; j++) {
+                                printf("%d ", transposee2[i][j]);
+                            }
+                        printf("\n");
+                        }
+                }
+                if(operation ==5){
+                    printf("Déterminant de la matrice 1 est : %d\n", calculer_determinant(matrice1));
+                    printf("Déterminant de la matrice 2 est : %d\n", calculer_determinant(matrice2));
+                }
+            }
+                 printf("\n Cliquer sur y pour continuer , sinon sur x pour quitter :");
+                 scanf("%s",&ch);
+        } while (ch == 'y' || ch== 'Y');
+        return 0;
+    }
+
